@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download ZIP-archive</title>
+    <link rel="icon" href="https://static.vecteezy.com/system/resources/previews/012/697/300/non_2x/3d-c-programming-language-logo-free-png.png">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px 50px;
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        .container:hover {
+            transform: translateY(-4px);
+        }
+        h1 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        p.subtitle {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        .selector-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        select {
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background-color: #f9f9f9;
+            color: #2c3e50;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            width: 100%;
+            max-width: 280px;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="%237f8c8d" d="M8 11L3 6h10z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+        }
+        select:hover {
+            border-color: #3498db;
+        }
+        select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 8px 15px rgba(52,152,219,0.3);
+            letter-spacing: 0.5px;
+        }
+        button:hover {
+            background: #2980b9;
+            box-shadow: 0 12px 20px rgba(52,152,219,0.4);
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 6px 12px rgba(52,152,219,0.3);
+        }
+        .file-info {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #95a5a6;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            word-break: break-all;
+        }
+        .file-info span {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        footer {
+            margin-top: 2rem;
+            color: #bdc3c7;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Downoload archive</h1>
+        <p class="subtitle">Chose ZIP-file for downloads</p>
+
+        <div class="selector-group">
+            <label for="versionSelect" style="font-weight: 500; color: #2c3e50;">Версия:</label>
+            <select id="versionSelect">
+                <option value="v1.2.1">v1.2.1</option>
+            </select>
+        </div>
+
+        <button id="downloadBtn">⬇️ Download</button>
+
+        <div class="file-info" id="fileInfo">
+            <span id="fileNameDisplay"></span>
+        </div>
+        <a id="downloadLink" style="display: none;" download></a>
+    </div>
+
+    <script>
+        (function() {
+            const versionSelect = document.getElementById('versionSelect');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const downloadLink = document.getElementById('downloadLink');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            function updateDisplayFileName() {
+                const selectedVersion = versionSelect.value;
+                const fileName = selectedVersion + '.zip';
+                fileNameDisplay.textContent = fileName;
+                return fileName;
+            }
+            updateDisplayFileName();
+            versionSelect.addEventListener('change', updateDisplayFileName);
+            downloadBtn.addEventListener('click', function() {
+                const fileName = updateDisplayFileName();
+                downloadLink.href = fileName;
+                downloadLink.click();
+            });
+        })();
+    </script>
+</body>
+</html>
